@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<!--
+  =============================================================
+  SHARMA COMPUTER - JOB & PLACEMENT PORTAL (static index.html)
+  =============================================================
+  GitHub पर कैसे चलाएँ (GitHub Pages - मुफ़्त होस्टिंग):
+    1) GitHub पर नया Repository बनाएँ (जैसे: sharma-computer-portal)
+    2) इस index.html फ़ाइल को repository में upload करें
+       (Add file -> Upload files -> Commit changes)
+    3) Repository की Settings -> Pages ->
+       Source: "Deploy from a branch" -> Branch: main, Folder: / (root) -> Save
+    4) 1-2 मिनट में site लाइव हो जाएगी:
+       https://आपका-username.github.io/sharma-computer-portal/
+
+  मुख्य पोर्टल लिंक जोड़ना (Login / Register / Apply बटन):
+    नीचे <script> में PORTAL_URL = "";  की जगह अपने पूरे (full) पोर्टल का
+    लिंक डालें, जैसे:  PORTAL_URL = "https://your-portal-url.com";
+    तभी Login/Register/Apply बटन सीधे पोर्टल खोलेंगे।
+
+  नोट: यह static page है। Login, डेटाबेस, जॉब आवेदन आदि वाला पूरा पोर्टल
+  server (hosting) पर ही चलता है - GitHub Pages पर केवल यह पेज चलेगा।
+  =============================================================
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sharma Computer – Job & Placement Portal | शर्मा कंप्यूटर</title>
+<meta name="description" content="Sharma Computer Job & Placement Portal, Rajnandgaon (Chhattisgarh). Free student registration, college & ITI directory, factory recruitment and professional biodata (₹199). निःशुल्क छात्र पंजीकरण, कॉलेज-आईटीआई निर्देशिका, फैक्टरी भर्ती।">
+<meta property="og:title" content="Sharma Computer – Job & Placement Portal">
+<meta property="og:description" content="Building Careers... Brightening Futures... | करियर का निर्माण... उज्ज्वल भविष्य...">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><path d='M48 6 L84 20 V50 C84 70 68 84 48 90 C28 84 12 70 12 50 V20 Z' fill='%231e40af' stroke='%233b82f6' stroke-width='2'/><text x='48' y='62' font-family='Arial' font-size='44' font-weight='bold' fill='white' text-anchor='middle'>S</text><path d='M58 30 L72 30 L72 44' fill='none' stroke='%2316a34a' stroke-width='6' stroke-linecap='round'/></svg>">
+<style>
+  :root{
+    --royal-900:#172554; --royal-800:#1e3a8a; --royal-700:#1e40af; --royal-600:#2563eb;
+    --green:#16a34a; --green-dark:#15803d; --grey-bg:#f5f7fa; --ink:#1f2937; --muted:#64748b;
+    --border:#e2e8f0; --card:#ffffff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans","Noto Sans Devanagari","Noto Sans Devanagari UI",Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.55}
+  img,svg{display:block}
+  a{color:inherit;text-decoration:none}
+  i{font-style:normal}
+  ul{list-style:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 16px}
+  .ic{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+  section{scroll-margin-top:96px}
+
+  /* ---------- Top info bar ---------- */
+  .site-header{position:sticky;top:0;z-index:50}
+  .topbar{background:var(--royal-900);color:#fff;font-size:13px}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:6px;padding-bottom:6px}
+  .topbar .tb-left{display:flex;align-items:center;gap:16px;min-width:0}
+  .topbar .tb-left span,.topbar .tb-left a{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+  .topbar .tb-left .tb-addr{display:none}
+  .topbar .tb-left .tb-mail{display:none}
+  @media(min-width:640px){.topbar .tb-left .tb-mail{display:inline-flex}}
+  @media(min-width:900px){.topbar .tb-left .tb-addr{display:inline-flex}}
+  .topbar a:hover{text-decoration:underline}
+  .tb-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+  .lang-btn{background:transparent;border:1px solid rgba(147,197,253,.45);color:#fff;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;cursor:pointer}
+  .lang-btn:hover{background:rgba(30,64,175,.5)}
+  .btn-login-top{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(147,197,253,.5);color:#fff;border-radius:8px;padding:4px 10px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
+  .btn-login-top:hover{background:rgba(30,64,175,.55)}
+
+  /* ---------- Main nav ---------- */
+  .mainnav{background:#fff;box-shadow:0 2px 8px rgba(15,23,42,.08);border-bottom:1px solid var(--border)}
+  .mainnav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:10px}
+  .brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+  .brand .logo{width:44px;height:44px}
+  .brand .bt{line-height:1.15;text-align:left}
+  .brand .bt b{display:block;color:var(--royal-800);font-size:17px;letter-spacing:.3px}
+  .brand .bt span{display:block;color:var(--muted);font-size:10.5px;font-weight:600;letter-spacing:1px}
+  .nav-links{display:none;align-items:center;gap:4px}
+  .nav-links a{display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border-radius:8px;font-size:14px;font-weight:500;color:#334155;transition:.2s}
+  .nav-links a:hover{background:#eff6ff;color:var(--royal-700)}
+  .nav-links a.active{background:var(--royal-700);color:#fff}
+  @media(min-width:1024px){.nav-links{display:flex}.menu-btn{display:none!important}}
+  .menu-btn{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid var(--border);border-radius:8px;background:#fff;color:#334155;cursor:pointer}
+
+  /* ---------- Mobile drawer ---------- */
+  .drawer-overlay{position:fixed;inset:0;background:rgba(15,23,42,.5);opacity:0;pointer-events:none;transition:.25s;z-index:60}
+  .drawer{position:fixed;top:0;right:0;height:100%;width:288px;max-width:85vw;background:#fff;z-index:61;transform:translateX(100%);transition:.28s;overflow-y:auto;padding:18px;box-shadow:-8px 0 24px rgba(15,23,42,.15)}
+  body.drawer-open .drawer-overlay{opacity:1;pointer-events:auto}
+  body.drawer-open .drawer{transform:translateX(0)}
+  body.drawer-open{overflow:hidden}
+  .drawer h3{color:var(--royal-800);margin-bottom:14px}
+  .drawer nav a{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:8px;font-size:14.5px;font-weight:500;color:#334155}
+  .drawer nav a:hover{background:#eff6ff}
+  .drawer .close-drawer{position:absolute;top:14px;right:14px;width:34px;height:34px;border:1px solid var(--border);border-radius:8px;background:#fff;color:#334155;display:flex;align-items:center;justify-content:center;cursor:pointer}
+
+  /* ---------- Hero ---------- */
+  .hero{background:linear-gradient(135deg,#1e3a8a 0%,#1e40af 45%,#2563eb 100%);color:#fff}
+  .hero .wrap{display:grid;gap:36px;padding-top:56px;padding-bottom:56px;align-items:center}
+  @media(min-width:1024px){.hero .wrap{grid-template-columns:1.05fr .95fr;padding-top:80px;padding-bottom:80px}}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:999px;padding:5px 14px;font-size:13px;font-weight:600;margin-bottom:16px}
+  .hero h1{font-size:34px;font-weight:800;line-height:1.15}
+  @media(min-width:640px){.hero h1{font-size:48px}}
+  .hero .sub{margin-top:12px;font-size:19px;font-weight:600;color:#dbeafe}
+  @media(min-width:640px){.hero .sub{font-size:22px}}
+  .hero .line{margin-top:8px;color:#bfdbfe}
+  .hero .ctas{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;padding:12px 22px;font-size:15.5px;font-weight:700;cursor:pointer;border:1px solid transparent;transition:.2s}
+  .btn-green{background:var(--green);color:#fff}
+  .btn-green:hover{background:var(--green-dark)}
+  .btn-outline-w{border-color:rgba(255,255,255,.6);color:#fff;background:transparent}
+  .btn-outline-w:hover{background:rgba(255,255,255,.12)}
+  .btn-royal{background:var(--royal-700);color:#fff}
+  .btn-royal:hover{background:var(--royal-800)}
+  .hero .trust{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 22px;font-size:14px;color:#dbeafe}
+  .hero .trust span{display:inline-flex;align-items:center;gap:7px}
+  .hero .trust .ic{color:#4ade80;width:17px;height:17px}
+  .hero-stats{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(4px);border-radius:18px;padding:22px}
+  .hero-stats .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .hero-stats .cell{background:rgba(255,255,255,.1);border-radius:12px;padding:20px 10px;text-align:center}
+  .hero-stats .cell b{display:block;font-size:30px;font-weight:800}
+  .hero-stats .cell span{font-size:13px;color:#dbeafe}
+  .hero-stats .tag{margin-top:14px;background:rgba(34,197,94,.2);border:1px solid rgba(74,222,128,.35);border-radius:12px;padding:12px;text-align:center;font-size:14px;font-weight:600;color:#dcfce7}
+  .stats-strip{display:none}
+  @media(max-width:1023px){
+    .stats-strip{background:var(--royal-800);color:#fff}
+    .stats-strip .wrap{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.12);padding:0}
+    .stats-strip .cell{background:var(--royal-800);padding:16px 8px;text-align:center}
+    .stats-strip .cell b{display:block;font-size:24px}
+    .stats-strip .cell span{font-size:12px;color:#dbeafe}
+    .hero-stats{display:none}
+  }
+
+  /* ---------- Sections ---------- */
+  .sec{padding:56px 0}
+  .sec-grey{background:var(--grey-bg)}
+  .sec-head{text-align:center}
+  .sec-head h2{color:var(--royal-800);font-size:26px;font-weight:800}
+  @media(min-width:640px){.sec-head h2{font-size:30px}}
+  .sec-head .bar{width:96px;height:4px;background:var(--green);border-radius:99px;margin:10px auto 0}
+  .sec-top{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .sec-top h2{color:var(--royal-800);font-size:26px;font-weight:800}
+  @media(min-width:640px){.sec-top h2{font-size:30px}}
+  .link-more{display:inline-flex;align-items:center;gap:6px;color:var(--royal-700);font-weight:600;font-size:14.5px;background:none;border:none;cursor:pointer}
+  .link-more:hover{text-decoration:underline}
+  .grid-cards{margin-top:32px;display:grid;gap:16px}
+  @media(min-width:640px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr}}
+  @media(min-width:1024px){.g3{grid-template-columns:1fr 1fr 1fr}}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;transition:.25s}
+  .card:hover{box-shadow:0 8px 22px rgba(15,23,42,.1);transform:translateY(-2px)}
+  .svc .icbox{width:48px;height:48px;border-radius:12px;background:#e0e9ff;color:var(--royal-700);display:flex;align-items:center;justify-content:center;font-size:24px;transition:.25s}
+  .svc:hover .icbox{background:var(--royal-700);color:#fff}
+  .svc h3{margin-top:14px;font-size:16.5px;font-weight:700;color:#1e293b}
+  .svc p{margin-top:6px;font-size:14px;color:var(--muted);min-height:42px}
+
+  /* Jobs */
+  .job-steps{margin-top:30px;display:grid;gap:14px}
+  @media(min-width:640px){.job-steps{grid-template-columns:1fr 1fr}}
+  @media(min-width:1024px){.job-steps{grid-template-columns:repeat(4,1fr)}}
+  .step{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;position:relative}
+  .step .num{position:absolute;top:-14px;left:20px;width:28px;height:28px;border-radius:999px;background:var(--royal-700);color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+  .step h3{margin-top:6px;font-size:15.5px;font-weight:700;color:#1e293b}
+  .step p{margin-top:5px;font-size:13.5px;color:var(--muted)}
+  .notice{margin-top:26px;background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start;font-size:14.5px;color:#92400e}
+  .notice .ic{width:20px;height:20px;margin-top:2px}
+
+  /* Institutes & factories */
+  .inst-card{display:flex;gap:14px;align-items:flex-start}
+  .avatar{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#1e40af,#2563eb);color:#fff;font-weight:800;font-size:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .avatar.iti{background:linear-gradient(135deg,#0f766e,#14b8a6)}
+  .chip{display:inline-block;border-radius:999px;padding:2px 10px;font-size:11.5px;font-weight:700;border:1px solid}
+  .chip-college{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
+  .chip-iti{background:#f0fdfa;color:#0f766e;border-color:#99f6e4}
+  .chip-ind{background:#f1f5f9;color:#475569;border-color:#e2e8f0}
+  .inst-card h3{margin-top:6px;font-size:15.5px;font-weight:700;color:#1e293b;line-height:1.3}
+  .inst-card .meta{margin-top:2px;font-size:12.5px;color:var(--muted)}
+  .inst-card .meta2{margin-top:6px;font-size:12.5px;color:#475569}
+  .priv-note{margin-top:24px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start;font-size:14px;color:#1e40af}
+  .priv-note .ic{width:20px;height:20px;margin-top:2px;flex-shrink:0}
+
+  /* Student registration */
+  .reg-grid{display:grid;gap:28px;align-items:center}
+  @media(min-width:1024px){.reg-grid{grid-template-columns:1.1fr .9fr}}
+  .reg-points li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;font-size:15px}
+  .reg-points .ic{width:20px;height:20px;color:var(--green);margin-top:3px;flex-shrink:0}
+  .id-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px;text-align:center;box-shadow:0 8px 22px rgba(15,23,42,.06)}
+  .id-card .sid{margin-top:14px;background:var(--grey-bg);border:1px dashed #94a3b8;border-radius:10px;padding:12px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:17px;font-weight:700;color:var(--royal-800);letter-spacing:1px}
+  .id-card .cap{margin-top:10px;font-size:12.5px;color:var(--muted)}
+
+  /* Biodata band */
+  .bio{background:linear-gradient(120deg,#15803d 0%,#16a34a 100%);color:#fff}
+  .bio .wrap{display:grid;gap:26px;align-items:center}
+  @media(min-width:1024px){.bio .wrap{grid-template-columns:1fr 1.2fr}}
+  .bio h2{font-size:26px;font-weight:800}
+  @media(min-width:640px){.bio h2{font-size:30px}}
+  .bio .price{display:inline-flex;align-items:baseline;gap:4px;margin-top:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:12px;padding:8px 16px;font-weight:800;font-size:26px}
+  .bio .price small{font-size:13px;font-weight:600;color:#dcfce7}
+  .bio-steps{display:grid;gap:12px}
+  @media(min-width:640px){.bio-steps{grid-template-columns:1fr 1fr}}
+  .bio-step{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;font-size:14.5px}
+  .bio-step .num{width:26px;height:26px;border-radius:999px;background:#fff;color:var(--green-dark);font-weight:800;font-size:13.5px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .bio .ctas{margin-top:26px}
+
+  /* Mission & contact */
+  .mission{background:linear-gradient(120deg,#172554 0%,#1e3a8a 60%,#1d4ed8 100%);color:#fff;text-align:center}
+  .mission h2{font-size:26px;font-weight:800}
+  @media(min-width:640px){.mission h2{font-size:30px}}
+  .mission .en{max-width:820px;margin:16px auto 0;color:#dbeafe;font-size:16px}
+  .mission .hi{margin-top:6px;color:#bfdbfe;font-size:15.5px}
+  .contact-cards{display:grid;gap:16px;margin-top:34px}
+  @media(min-width:640px){.contact-cards{grid-template-columns:1fr 1fr}}
+  @media(min-width:1024px){.contact-cards{grid-template-columns:1fr 1fr 1fr}}
+  .c-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:22px;text-align:center}
+  .c-card .icbox{width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:22px;color:#93c5fd}
+  .c-card h3{margin-top:12px;font-size:15px;font-weight:700}
+  .c-card p,.c-card a{margin-top:4px;font-size:14.5px;color:#dbeafe;word-break:break-word}
+  .c-card a:hover{text-decoration:underline}
+  .portal-note{margin-top:20px;font-size:13.5px;color:#bfdbfe}
+
+  /* Privacy */
+  .priv-grid{display:grid;gap:14px;margin-top:30px}
+  @media(min-width:640px){.priv-grid{grid-template-columns:1fr 1fr}}
+  .priv-item{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start}
+  .priv-item .ic{width:22px;height:22px;color:var(--green);margin-top:2px;flex-shrink:0}
+  .priv-item p{font-size:14.5px;color:#334155}
+
+  /* Footer */
+  footer{background:var(--royal-900);color:#bfdbfe;font-size:14px}
+  footer .cols{display:grid;gap:30px;padding:44px 0}
+  @media(min-width:768px){footer .cols{grid-template-columns:1.2fr 1fr 1fr 1fr}}
+  footer h3{color:#fff;font-size:15px;margin-bottom:14px}
+  footer li{margin-bottom:9px}
+  footer a:hover{color:#fff;text-decoration:underline}
+  .f-brand{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .f-brand .logo{width:40px;height:40px}
+  .f-brand b{color:#fff;display:block;font-size:15px}
+  .f-brand span{font-size:11px;color:#93c5fd;letter-spacing:.5px}
+  .trust-line{display:flex;align-items:center;gap:8px;margin-top:12px;color:#bbf7d0}
+  .trust-line .ic{color:#4ade80}
+  .bottom{border-top:1px solid rgba(255,255,255,.12)}
+  .bottom .wrap{padding:14px 16px;text-align:center;font-size:12.5px;color:#93c5fd}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="shieldG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2563eb"/><stop offset="0.55" stop-color="#1e40af"/><stop offset="1" stop-color="#172554"/>
+    </linearGradient>
+    <linearGradient id="glowG" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#16a34a"/><stop offset="1" stop-color="#4ade80"/>
+    </linearGradient>
+    <symbol id="logo" viewBox="0 0 96 96">
+      <path d="M48 6 L84 20 V50 C84 70 68 84 48 90 C28 84 12 70 12 50 V20 Z" fill="url(#shieldG)" stroke="#3b82f6" stroke-width="2.5"/>
+      <text x="48" y="60" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="bold" fill="#ffffff" text-anchor="middle">S</text>
+      <path d="M58 30 L72 30 L72 44" fill="none" stroke="url(#glowG)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M55 34 L72 17 L89 34" fill="none" stroke="url(#glowG)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" transform="translate(-2,0) scale(0.9) translate(9,4)"/>
+      <circle cx="24" cy="30" r="2.5" fill="#93c5fd" opacity="0.9"/><circle cx="74" cy="66" r="2" fill="#60a5fa" opacity="0.8"/><circle cx="20" cy="58" r="1.8" fill="#93c5fd" opacity="0.7"/>
+    </symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-brief" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></symbol>
+    <symbol id="i-factory" viewBox="0 0 24 24"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
+    <symbol id="i-monitor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol>
+    <symbol id="i-grad" viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-rupee" viewBox="0 0 24 24"><path d="M6 3h12"/><path d="M6 8h12"/><path d="m6 13 8.5 8"/><path d="M6 13h3"/><path d="M9 13c6.667 0 6.667-10 0-10"/></symbol>
+    <symbol id="i-login" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  </defs>
+</svg>
+
+<!-- ============ HEADER ============ -->
+<div class="site-header">
+  <div class="topbar">
+    <div class="wrap">
+      <div class="tb-left">
+        <span class="tb-addr"><svg class="ic"><use href="#i-pin"/></svg> Rajnandgaon, Chhattisgarh, India</span>
+        <a class="tb-mail" href="mailto:info@sharmacomputer.in"><svg class="ic"><use href="#i-mail"/></svg> info@sharmacomputer.in</a>
+        <a href="tel:+918251010447"><svg class="ic"><use href="#i-phone"/></svg> +91 8251010447</a>
+      </div>
+      <div class="tb-right">
+        <button class="lang-btn" id="langBtn" aria-label="Switch language">हिन्दी | English</button>
+        <a class="btn-login-top js-portal" data-path="/login" href="#contact"><svg class="ic"><use href="#i-login"/></svg> <i data-en="Login" data-hi="लॉगिन">Login</i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="mainnav">
+    <div class="wrap">
+      <a class="brand" href="#home" aria-label="Sharma Computer home">
+        <svg class="logo"><use href="#logo"/></svg>
+        <span class="bt"><b>SHARMA COMPUTER</b><span>JOB &amp; PLACEMENT PORTAL</span></span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#home" class="active"><svg class="ic"><use href="#i-building"/></svg> <i data-en="Home" data-hi="होम">Home</i></a>
+        <a href="#colleges"><svg class="ic"><use href="#i-building"/></svg> <i data-en="College & ITI" data-hi="कॉलेज एवं आईटीआई">College &amp; ITI</i></a>
+        <a href="#factories"><svg class="ic"><use href="#i-factory"/></svg> <i data-en="Factory Directory" data-hi="फैक्टरी निर्देशिका">Factory Directory</i></a>
+        <a href="#student-register"><svg class="ic"><use href="#i-grad"/></svg> <i data-en="Student Registration" data-hi="छात्र पंजीकरण">Student Registration</i></a>
+        <a href="#jobs"><svg class="ic"><use href="#i-brief"/></svg> <i data-en="Job Opportunities" data-hi="रोजगार के अवसर">Job Opportunities</i></a>
+        <a href="#about"><svg class="ic"><use href="#i-info"/></svg> <i data-en="About Us & Contact" data-hi="हमारे बारे में एवं संपर्क">About Us &amp; Contact</i></a>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu"><svg class="ic" style="width:20px;height:20px"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile drawer -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<aside class="drawer" id="drawer" aria-label="Mobile menu">
+  <button class="close-drawer" id="drawerClose" aria-label="Close menu"><svg class="ic" style="width:18px;height:18px"><use href="#i-close"/></svg></button>
+  <h3>Sharma Computer</h3>
+  <nav>
+    <a href="#home"><svg class="ic"><use href="#i-building"/></svg> <i data-en="Home" data-hi="होम">Home</i></a>
+    <a href="#colleges"><svg class="ic"><use href="#i-building"/></svg> <i data-en="College & ITI" data-hi="कॉलेज एवं आईटीआई">College &amp; ITI</i></a>
+    <a href="#factories"><svg class="ic"><use href="#i-factory"/></svg> <i data-en="Factory Directory" data-hi="फैक्टरी निर्देशिका">Factory Directory</i></a>
+    <a href="#student-register"><svg class="ic"><use href="#i-grad"/></svg> <i data-en="Student Registration" data-hi="छात्र पंजीकरण">Student Registration</i></a>
+    <a href="#jobs"><svg class="ic"><use href="#i-brief"/></svg> <i data-en="Job Opportunities" data-hi="रोजगार के अवसर">Job Opportunities</i></a>
+    <a href="#about"><svg class="ic"><use href="#i-info"/></svg> <i data-en="About Us & Contact" data-hi="हमारे बारे में एवं संपर्क">About Us &amp; Contact</i></a>
+    <a href="#privacy"><svg class="ic"><use href="#i-shield"/></svg> <i data-en="Privacy & Trust" data-hi="गोपनीयता एवं भरोसा">Privacy &amp; Trust</i></a>
+    <a class="js-portal" data-path="/login" href="#contact"><svg class="ic"><use href="#i-login"/></svg> <i data-en="Login" data-hi="लॉगिन">Login</i></a>
+  </nav>
+</aside>
+
+<main id="home">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="hero-badge"><svg class="ic"><use href="#i-shield"/></svg> <i data-en="100% genuine jobs • Free registration" data-hi="100% असली नौकरियाँ • निःशुल्क पंजीकरण">100% genuine jobs • Free registration</i></span>
+        <h1><i data-en="Job & Placement Portal" data-hi="जॉब एवं प्लेसमेंट पोर्टल">Job &amp; Placement Portal</i></h1>
+        <p class="sub"><i data-en="Building Careers... Brightening Futures..." data-hi="करियर का निर्माण... उज्ज्वल भविष्य...">Building Careers... Brightening Futures...</i></p>
+        <p class="line"><i data-en="Education + Skills = Better Employment" data-hi="शिक्षा + कौशल = बेहतर रोजगार">Education + Skills = Better Employment</i></p>
+        <div class="ctas">
+          <a class="btn btn-green js-portal" data-path="/student-register" href="#contact"><svg class="ic"><use href="#i-grad"/></svg> <i data-en="Register Now – FREE" data-hi="अभी पंजीकरण करें – निःशुल्क">Register Now – FREE</i></a>
+          <a class="btn btn-outline-w js-portal" data-path="/jobs" href="#jobs"><i data-en="Browse Jobs" data-hi="नौकरियाँ देखें">Browse Jobs</i> <svg class="ic"><use href="#i-arrow"/></svg></a>
+        </div>
+        <div class="trust">
+          <span><svg class="ic"><use href="#i-check"/></svg> <i data-en="Free Registration" data-hi="निःशुल्क पंजीकरण">Free Registration</i></span>
+          <span><svg class="ic"><use href="#i-check"/></svg> <i data-en="100% Safe & Trusted" data-hi="100% सुरक्षित एवं भरोसेमंद">100% Safe &amp; Trusted</i></span>
+          <span><svg class="ic"><use href="#i-check"/></svg> <svg class="ic" style="width:14px;height:14px;color:#4ade80"><use href="#i-rupee"/></svg><i data-en="199 Professional Biodata" data-hi="199 प्रोफेशनल बायोडाटा">199 Professional Biodata</i></span>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="grid">
+          <div class="cell"><b>100+</b><span><i data-en="Colleges & ITIs" data-hi="कॉलेज एवं आईटीआई">Colleges &amp; ITIs</i></span></div>
+          <div class="cell"><b>50+</b><span><i data-en="Factories" data-hi="फैक्टरियाँ">Factories</i></span></div>
+          <div class="cell"><b>10000+</b><span><i data-en="Students Registered" data-hi="पंजीकृत छात्र">Students Registered</i></span></div>
+          <div class="cell"><b>5000+</b><span><i data-en="Job Vacancies" data-hi="नौकरी भर्ती">Job Vacancies</i></span></div>
+        </div>
+        <div class="tag"><i data-en="Education + Skills = Better Employment" data-hi="शिक्षा + कौशल = बेहतर रोजगार">Education + Skills = Better Employment</i></div>
+      </div>
+    </div>
+  </section>
+  <div class="stats-strip">
+    <div class="wrap">
+      <div class="cell"><b>100+</b><span><i data-en="Colleges & ITIs" data-hi="कॉलेज एवं आईटीआई">Colleges &amp; ITIs</i></span></div>
+      <div class="cell"><b>50+</b><span><i data-en="Factories" data-hi="फैक्टरियाँ">Factories</i></span></div>
+      <div class="cell"><b>10000+</b><span><i data-en="Students Registered" data-hi="पंजीकृत छात्र">Students Registered</i></span></div>
+      <div class="cell"><b>5000+</b><span><i data-en="Job Vacancies" data-hi="नौकरी भर्ती">Job Vacancies</i></span></div>
+    </div>
+  </div>
+
+  <!-- ============ SERVICES ============ -->
+  <section id="services" class="sec sec-grey">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><i data-en="Our Services" data-hi="हमारी सेवाएँ">Our Services</i></h2>
+        <div class="bar"></div>
+      </div>
+      <div class="grid-cards g3">
+        <div class="card svc">
+          <div class="icbox"><svg class="ic"><use href="#i-brief"/></svg></div>
+          <h3><i data-en="Job Placement" data-hi="जॉब प्लेसमेंट">Job Placement</i></h3>
+          <p><i data-en="Direct connection with factories and companies for jobs." data-hi="नौकरी के लिए फैक्टरियों और कंपनियों से सीधा संपर्क।">Direct connection with factories and companies for jobs.</i></p>
+          <a class="link-more js-portal" data-path="/jobs" href="#jobs"><i data-en="View More" data-hi="और देखें">View More</i> <svg class="ic"><use href="#i-arrow"/></svg></a>
+        </div>
+        <div class="card svc">
+          <div class="icbox"><svg class="ic"><use href="#i-building"/></svg></div>
+          <h3><i data-en="College & ITI Support" data-hi="कॉलेज एवं आईटीआई सहायता">College &amp; ITI Support</i></h3>
+          <p><i data-en="Digital profiles and pass-out statistics for institutes." data-hi="संस्थानों के लिए डिजिटल प्रोफाइल और पासआउट आंकड़े।">Digital profiles and pass-out statistics for institutes.</i></p>
+          <a class="link-more js-portal" data-path="/colleges" href="#colleges"><i data-en="View More" data-hi="और देखें">View More</i> <svg class="ic"><use href="#i-arrow"/></svg></a>
+        </div>
+        <div class="card svc">
+          <div class="icbox"><svg class="ic"><use href="#i-factory"/></svg></div>
+          <h3><i data-en="Factory Recruitment" data-hi="फैक्टरी भर्ती">Factory Recruitment</i></h3>
+          <p><i data-en="Verified skilled workers for factories – confidential process." data-hi="फैक्टरियों के लिए सत्यापित कुशल श्रमिक – गोपनीय प्रक्रिया।">Verified skilled workers for factories – confidential process.</i></p>
+          <a class="link-more js-portal" data-path="/factories" href="#factories"><i data-en="View More" data-hi="और देखें">View More</i> <svg class="ic"><use href="#i-arrow"/></svg></a>
+        </div>
+        <div class="card svc">
+          <div class="icbox"><svg class="ic"><use href="#i-file"/></svg></div>
+          <h3><i data-en="Professional Biodata (₹199)" data-hi="प्रोफेशनल बायोडाटा (₹199)">Professional Biodata (₹199)</i></h3>
+          <p><i data-en="We prepare a professional biodata for you in PDF." data-hi="हम आपके लिए प्रोफेशनल बायोडाटा (PDF) तैयार करते हैं।">We prepare a professional biodata for you in PDF.</i></p>
+          <a class="link-more" href="#biodata"><i data-en="View More" data-hi="और देखें">View More</i> <svg class="ic"><use href="#i-arrow"/></svg></a>
+        </div>
+        <div class="card svc">
+          <div class="icbox"><svg class="ic"><use href="#i-monitor"/></svg></div>
+          <h3><i data-en="Digital Services" data-hi="डिजिटल सेवाएँ">Digital Services</i></h3>
+          <p><i data-en="Online forms, results, certificates and more." data-hi="ऑनलाइन फॉर्म, परिणाम, प्रमाणपत्र एवं अन्य।">Online forms, results, certificates and more.</i></p>
+          <a class="link-more" href="#about"><i data-en="View More" data-hi="और देखें">View More</i> <svg class="ic"><use href="#i-arrow"/></svg></a>
+        </div>
+        <div class="card svc">
+          <div class="icbox"><svg class="ic"><use href="#i-compass"/></svg></div>
+          <h3><i data-en="Career Guidance" data-hi="करियर मार्गदर्शन">Career Guidance</i></h3>
+          <p><i data-en="Free counselling for courses, trades and careers." data-hi="कोर्स, ट्रेड और करियर के लिए निःशुल्क परामर्श।">Free counselling for courses, trades and careers.</i></p>
+          <a class="link-more" href="#about"><i data-en="View More" data-hi="और देखें">View More</i> <svg class="ic"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ JOBS ============ -->
+  <section id="jobs" class="sec">
+    <div class="wrap">
+      <div class="sec-top">
+        <h2><i data-en="Latest Job Vacancies" data-hi="नवीनतम नौकरी भर्ती">Latest Job Vacancies</i></h2>
+        <a class="link-more js-portal" data-path="/jobs" href="#contact"><i data-en="View All Jobs" data-hi="सभी नौकरियाँ देखें">View All Jobs</i> <svg class="ic"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="job-steps">
+        <div class="step"><span class="num">1</span>
+          <h3><i data-en="Requirement approved" data-hi="आवश्यकता स्वीकृत">Requirement approved</i></h3>
+          <p><i data-en="Factory requirements are verified & approved by Super Admin." data-hi="फैक्टरी की आवश्यकताएँ सुपर एडमिन द्वारा सत्यापित एवं स्वीकृत होती हैं।">Factory requirements are verified &amp; approved by Super Admin.</i></p>
+        </div>
+        <div class="step"><span class="num">2</span>
+          <h3><i data-en="Vacancy published" data-hi="वैकेंसी जारी">Vacancy published</i></h3>
+          <p><i data-en="Approved vacancies are published openly on the portal." data-hi="स्वीकृत वैकेंसी पोर्टल पर खुले रूप से जारी की जाती हैं।">Approved vacancies are published openly on the portal.</i></p>
+        </div>
+        <div class="step"><span class="num">3</span>
+          <h3><i data-en="Apply with free login" data-hi="निःशुल्क लॉगिन कर आवेदन">Apply with free login</i></h3>
+          <p><i data-en="Registered students apply online for free with their resume." data-hi="पंजीकृत छात्र निःशुल्क ऑनलाइन आवेदन करते हैं और रिज़्यूमे जोड़ते हैं।">Registered students apply online for free with their resume.</i></p>
+        </div>
+        <div class="step"><span class="num">4</span>
+          <h3><i data-en="Selection & joining" data-hi="चयन एवं ज्वाइनिंग">Selection &amp; joining</i></h3>
+          <p><i data-en="Shortlisting, interview, selection and joining status tracked till completion." data-hi="शॉर्टलिस्टिंग, इंटरव्यू, चयन और ज्वाइनिंग तक स्थिति की जानकारी मिलती है।">Shortlisting, interview, selection and joining status tracked till completion.</i></p>
+        </div>
+      </div>
+      <div class="notice">
+        <svg class="ic"><use href="#i-alert"/></svg>
+        <span><i data-en="No new vacancies are open at this moment. New recruitments are published here periodically — please check back soon or contact us for the latest information." data-hi="इस समय कोई नई भर्ती जारी नहीं है। नई भर्तियाँ समय-समय पर यहीं जारी होती रहती हैं — कृपया थोड़ी देर बाद फिर देखें या नवीनतम जानकारी के लिए हमसे संपर्क करें।">No new vacancies are open at this moment. New recruitments are published here periodically — please check back soon or contact us for the latest information.</i></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COLLEGES & ITI ============ -->
+  <section id="colleges" class="sec sec-grey">
+    <div class="wrap">
+      <div class="sec-top">
+        <h2><i data-en="Featured Colleges & ITIs" data-hi="प्रमुख कॉलेज एवं आईटीआई">Featured Colleges &amp; ITIs</i></h2>
+        <a class="link-more js-portal" data-path="/colleges" href="#contact"><i data-en="View All" data-hi="सभी देखें">View All</i> <svg class="ic"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="grid-cards g3">
+        <div class="card inst-card">
+          <div class="avatar">G</div>
+          <div>
+            <span class="chip chip-college"><i data-en="College" data-hi="कॉलेज">College</i></span>
+            <h3>Govt. College Rajnandgaon</h3>
+            <p class="meta">Rajnandgaon • <i data-en="Established" data-hi="स्थापित">Established</i> 1956</p>
+            <p class="meta2"><b><i data-en="Courses" data-hi="कोर्स">Courses</i>:</b> B.A., B.Sc, B.Com, B.Ed, M.A., M.Sc</p>
+          </div>
+        </div>
+        <div class="card inst-card">
+          <div class="avatar">S</div>
+          <div>
+            <span class="chip chip-college"><i data-en="College" data-hi="कॉलेज">College</i></span>
+            <h3>Shri Ram College</h3>
+            <p class="meta">Rajnandgaon • <i data-en="Established" data-hi="स्थापित">Established</i> 2009</p>
+            <p class="meta2"><b><i data-en="Courses" data-hi="कोर्स">Courses</i>:</b> B.Com, B.Sc, B.A., BBA</p>
+          </div>
+        </div>
+        <div class="card inst-card">
+          <div class="avatar iti">G</div>
+          <div>
+            <span class="chip chip-iti">ITI</span>
+            <h3>Govt. ITI Rajnandgaon</h3>
+            <p class="meta">Rajnandgaon • <i data-en="Established" data-hi="स्थापित">Established</i> 1985</p>
+            <p class="meta2"><b><i data-en="Trades" data-hi="ट्रेड">Trades</i>:</b> Electrician, Fitter, Welder, COPA, MMV</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FACTORIES ============ -->
+  <section id="factories" class="sec">
+    <div class="wrap">
+      <div class="sec-top">
+        <h2><i data-en="Factory Directory" data-hi="फैक्टरी निर्देशिका">Factory Directory</i></h2>
+        <a class="link-more js-portal" data-path="/factories" href="#contact"><i data-en="View All" data-hi="सभी देखें">View All</i> <svg class="ic"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="grid-cards g3">
+        <div class="card inst-card">
+          <div class="avatar">T</div>
+          <div>
+            <span class="chip chip-ind">Steel &amp; Metals</span>
+            <h3>Tata Steel Ltd</h3>
+            <p class="meta">Raigarh, Chhattisgarh</p>
+            <p class="meta2"><i data-en="Partner for campus placements, apprenticeships & skilled worker recruitment." data-hi="कैंपस प्लेसमेंट, अपरेंटिसशिप एवं कुशल श्रमिक भर्ती के लिए साझेदार।">Partner for campus placements, apprenticeships &amp; skilled worker recruitment.</i></p>
+          </div>
+        </div>
+        <div class="card inst-card">
+          <div class="avatar">U</div>
+          <div>
+            <span class="chip chip-ind"><i data-en="Cement" data-hi="सीमेंट">Cement</i></span>
+            <h3>UltraTech Cement</h3>
+            <p class="meta">Balod, Chhattisgarh</p>
+            <p class="meta2"><i data-en="Partner for campus placements, apprenticeships & skilled worker recruitment." data-hi="कैंपस प्लेसमेंट, अपरेंटिसशिप एवं कुशल श्रमिक भर्ती के लिए साझेदार।">Partner for campus placements, apprenticeships &amp; skilled worker recruitment.</i></p>
+          </div>
+        </div>
+        <div class="card inst-card">
+          <div class="avatar">J</div>
+          <div>
+            <span class="chip chip-ind">Steel &amp; Metals</span>
+            <h3>JSW Steel</h3>
+            <p class="meta">Raigarh, Chhattisgarh</p>
+            <p class="meta2"><i data-en="Partner for campus placements, apprenticeships & skilled worker recruitment." data-hi="कैंपस प्लेसमेंट, अपरेंटिसशिप एवं कुशल श्रमिक भर्ती के लिए साझेदार।">Partner for campus placements, apprenticeships &amp; skilled worker recruitment.</i></p>
+          </div>
+        </div>
+        <div class="card inst-card">
+          <div class="avatar">B</div>
+          <div>
+            <span class="chip chip-ind"><i data-en="Refinery & Petrochemicals" data-hi="रिफाइनरी एवं पेट्रोकेमिकल्स">Refinery &amp; Petrochemicals</i></span>
+            <h3>BSP Refinery &amp; Petrochemical</h3>
+            <p class="meta">Bilaspur, Chhattisgarh</p>
+            <p class="meta2"><i data-en="Partner for campus placements, apprenticeships & skilled worker recruitment." data-hi="कैंपस प्लेसमेंट, अपरेंटिसशिप एवं कुशल श्रमिक भर्ती के लिए साझेदार।">Partner for campus placements, apprenticeships &amp; skilled worker recruitment.</i></p>
+          </div>
+        </div>
+        <div class="card inst-card">
+          <div class="avatar">L</div>
+          <div>
+            <span class="chip chip-ind"><i data-en="Construction & Engineering" data-hi="निर्माण एवं इंजीनियरिंग">Construction &amp; Engineering</i></span>
+            <h3>L&amp;T Construction &amp; Engineering</h3>
+            <p class="meta">Raipur, Chhattisgarh</p>
+            <p class="meta2"><i data-en="Partner for campus placements, apprenticeships & skilled worker recruitment." data-hi="कैंपस प्लेसमेंट, अपरेंटिसशिप एवं कुशल श्रमिक भर्ती के लिए साझेदार।">Partner for campus placements, apprenticeships &amp; skilled worker recruitment.</i></p>
+          </div>
+        </div>
+      </div>
+      <div class="priv-note">
+        <svg class="ic"><use href="#i-shield"/></svg>
+        <span><i data-en="Note: As per our privacy policy, factory owner names, mobile numbers, e-mail addresses and exact recruitment requirements are confidential and are never shown publicly." data-hi="नोट: हमारी गोपनीयता नीति के अनुसार फैक्टरी मालिक का नाम, मोबाइल नंबर, ईमेल और सटीक भर्ती आवश्यकताएँ गोपनीय हैं और सार्वजनिक रूप से कभी नहीं दिखाई जातीं।">Note: As per our privacy policy, factory owner names, mobile numbers, e-mail addresses and exact recruitment requirements are confidential and are never shown publicly.</i></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STUDENT REGISTRATION ============ -->
+  <section id="student-register" class="sec sec-grey">
+    <div class="wrap">
+      <div class="reg-grid">
+        <div>
+          <span class="chip chip-iti" style="font-size:12.5px"><i data-en="100% FREE" data-hi="100% निःशुल्क">100% FREE</i></span>
+          <h2 style="color:var(--royal-800);font-size:26px;font-weight:800;margin-top:10px"><i data-en="Student Registration – FREE" data-hi="छात्र पंजीकरण – निःशुल्क">Student Registration – FREE</i></h2>
+          <ul class="reg-points" style="margin-top:10px">
+            <li><svg class="ic"><use href="#i-check"/></svg><span><i data-en="Register free with Google login and get your own Student ID." data-hi="Google लॉगिन से निःशुल्क पंजीकरण करें और अपनी छात्र आईडी पाएँ।">Register free with Google login and get your own Student ID.</i></span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span><i data-en="Fill personal, education (10th, 12th, ITI, Diploma, Graduation) and skill details." data-hi="व्यक्तिगत, शैक्षिक (10वीं, 12वीं, आईटीआई, डिप्लोमा, ग्रेजुएशन) और कौशल विवरण भरें।">Fill personal, education (10th, 12th, ITI, Diploma, Graduation) and skill details.</i></span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span><i data-en="Upload your resume, apply to published jobs and track application status." data-hi="रिज़्यूमे अपलोड करें, जारी नौकरियों के लिए आवेदन करें और आवेदन की स्थिति देखें।">Upload your resume, apply to published jobs and track application status.</i></span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span><i data-en="Your information is stored only with your consent, for placement purposes." data-hi="आपकी जानकारी केवल आपकी सहमति के साथ, प्लेसमेंट उद्देश्यों के लिए संग्रहित होती है।">Your information is stored only with your consent, for placement purposes.</i></span></li>
+          </ul>
+          <a class="btn btn-green js-portal" data-path="/student-register" href="#contact" style="margin-top:14px"><svg class="ic"><use href="#i-grad"/></svg> <i data-en="Register Now – FREE" data-hi="अभी पंजीकरण करें – निःशुल्क">Register Now – FREE</i></a>
+        </div>
+        <div class="id-card">
+          <svg class="ic" style="width:44px;height:44px;color:var(--royal-700);margin:0 auto"><use href="#i-grad"/></svg>
+          <h3 style="margin-top:10px;font-size:16.5px;color:#1e293b"><i data-en="Your Student ID (example)" data-hi="आपकी छात्र आईडी (उदाहरण)">Your Student ID (example)</i></h3>
+          <div class="sid">SC-STU-2026-00001</div>
+          <p class="cap"><i data-en="Every registered student gets a unique ID like this, generated automatically." data-hi="ऐसी अद्वितीय आईडी हर पंजीकृत छात्र को स्वतः बनाकर दी जाती है।">Every registered student gets a unique ID like this, generated automatically.</i></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BIODATA ₹199 ============ -->
+  <section id="biodata" class="sec bio">
+    <div class="wrap">
+      <div>
+        <h2><i data-en="Professional Biodata Creation" data-hi="प्रोफेशनल बायोडाटा निर्माण">Professional Biodata Creation</i></h2>
+        <span class="price">₹199 <small>/ <i data-en="per biodata" data-hi="प्रति बायोडाटा">per biodata</i></small></span>
+        <p style="margin-top:12px;color:#dcfce7;font-size:15px"><i data-en="Get a clean, professional PDF biodata prepared by the Sharma Computer team — delivered right into your student account." data-hi="शर्मा कंप्यूटर टीम द्वारा तैयार साफ़-सुथरा प्रोफेशनल PDF बायोडाटा पाएँ — सीधे आपके छात्र खाते में।">Get a clean, professional PDF biodata prepared by the Sharma Computer team — delivered right into your student account.</i></p>
+        <div class="ctas">
+          <a class="btn js-portal" data-path="/student" href="#contact" style="background:#fff;color:var(--green-dark)"><svg class="ic"><use href="#i-file"/></svg> <i data-en="Create My Biodata – ₹199" data-hi="मेरा बायोडाटा बनाएँ – ₹199">Create My Biodata – ₹199</i></a>
+        </div>
+      </div>
+      <div class="bio-steps">
+        <div class="bio-step"><span class="num">1</span><span><i data-en="Register free on the portal" data-hi="पोर्टल पर निःशुल्क पंजीकरण करें">Register free on the portal</i></span></div>
+        <div class="bio-step"><span class="num">2</span><span><i data-en="Place your biodata order" data-hi="अपना बायोडाटा ऑर्डर करें">Place your biodata order</i></span></div>
+        <div class="bio-step"><span class="num">3</span><span><i data-en="Payment & server-side verification" data-hi="भुगतान एवं सर्वर-साइड सत्यापन">Payment &amp; server-side verification</i></span></div>
+        <div class="bio-step"><span class="num">4</span><span><i data-en="Prepared by Sharma Computer team" data-hi="शर्मा कंप्यूटर टीम द्वारा निर्माण">Prepared by Sharma Computer team</i></span></div>
+        <div class="bio-step"><span class="num">5</span><span><i data-en="Download the completed PDF" data-hi="तैयार PDF डाउनलोड करें">Download the completed PDF</i></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT & CONTACT ============ -->
+  <section id="about" class="sec mission">
+    <div class="wrap">
+      <h2><i data-en="Our Mission: Digital India, Skilled India" data-hi="हमारा मिशन: डिजिटल इंडिया, स्किल्ड इंडिया">Our Mission: Digital India, Skilled India</i></h2>
+      <p class="en">To provide the best digital services for education, employment and business growth in Chhattisgarh and contribute to a Digital India.</p>
+      <p class="hi">छत्तीसगढ़ में शिक्षा, रोजगार और व्यापार वृद्धि के लिए सर्वोत्तम डिजिटल सेवाएँ प्रदान करना और डिजिटल इंडिया में योगदान देना।</p>
+      <div class="contact-cards">
+        <div class="c-card">
+          <div class="icbox"><svg class="ic"><use href="#i-pin"/></svg></div>
+          <h3><i data-en="Visit / Address" data-hi="पता">Visit / Address</i></h3>
+          <p>Rajnandgaon, Chhattisgarh, India</p>
+        </div>
+        <div class="c-card">
+          <div class="icbox"><svg class="ic"><use href="#i-mail"/></svg></div>
+          <h3><i data-en="Email" data-hi="ईमेल">Email</i></h3>
+          <p><a href="mailto:info@sharmacomputer.in">info@sharmacomputer.in</a></p>
+        </div>
+        <div class="c-card">
+          <div class="icbox"><svg class="ic"><use href="#i-phone"/></svg></div>
+          <h3><i data-en="Call" data-hi="कॉल करें">Call</i></h3>
+          <p><a href="tel:+918251010447">+91 8251010447</a></p>
+        </div>
+      </div>
+      <p class="portal-note" id="portalNote"><i data-en="The complete online portal (login, registration, job applications) will be linked here." data-hi="पूरा ऑनलाइन पोर्टल (लॉगिन, पंजीकरण, जॉब आवेदन) का लिंक यहाँ जुड़ेगा।">The complete online portal (login, registration, job applications) will be linked here.</i></p>
+    </div>
+  </section>
+
+  <!-- ============ PRIVACY & TRUST ============ -->
+  <section id="privacy" class="sec sec-grey">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><i data-en="Privacy & Trust" data-hi="गोपनीयता एवं भरोसा">Privacy &amp; Trust</i></h2>
+        <div class="bar"></div>
+      </div>
+      <div class="priv-grid">
+        <div class="priv-item"><svg class="ic"><use href="#i-check"/></svg><p><i data-en="Student information is collected only with consent and used solely for placement purposes." data-hi="छात्र की जानकारी केवल सहमति के साथ ली जाती है और केवल प्लेसमेंट उद्देश्यों के लिए उपयोग की जाती है।">Student information is collected only with consent and used solely for placement purposes.</i></p></div>
+        <div class="priv-item"><svg class="ic"><use href="#i-shield"/></svg><p><i data-en="Factory owner names, mobile numbers, e-mails and exact recruitment requirements are strictly confidential — never shown publicly." data-hi="फैक्टरी मालिक का नाम, मोबाइल नंबर, ईमेल और सटीक भर्ती जानकारी पूर्णतः गोपनीय है — सार्वजनिक रूप से कभी नहीं दिखाई जाती।">Factory owner names, mobile numbers, e-mails and exact recruitment requirements are strictly confidential — never shown publicly.</i></p></div>
+        <div class="priv-item"><svg class="ic"><use href="#i-rupee"/></svg><p><i data-en="Payments are verified on the server; order status updates are always visible in your account." data-hi="भुगतान सर्वर पर सत्यापित होता है; ऑर्डर स्थिति के अपडेट सदैव आपके खाते में दिखते हैं।">Payments are verified on the server; order status updates are always visible in your account.</i></p></div>
+        <div class="priv-item"><svg class="ic"><use href="#i-shield"/></svg><p><i data-en="Single authority: approvals and content are managed only by the Super Admin of Sharma Computer." data-hi="एक ही प्राधिकरण: स्वीकृति एवं सामग्री का प्रबंधन केवल शर्मा कंप्यूटर के सुपर एडमिन द्वारा होता है।">Single authority: approvals and content are managed only by the Super Admin of Sharma Computer.</i></p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap cols">
+    <div>
+      <div class="f-brand">
+        <svg class="logo"><use href="#logo"/></svg>
+        <div><b>SHARMA COMPUTER</b><span>ONLINE SERVICES &amp; SOLUTIONS</span></div>
+      </div>
+      <p><i data-en="Building a Skilled India..." data-hi="एक कुशल भारत का निर्माण...">Building a Skilled India...</i></p>
+      <div class="trust-line"><svg class="ic"><use href="#i-shield"/></svg><span><i data-en="100% Safe & Trusted" data-hi="100% सुरक्षित एवं भरोसेमंद">100% Safe &amp; Trusted</i></span></div>
+    </div>
+    <div>
+      <h3><i data-en="Quick Links" data-hi="त्वरित लिंक">Quick Links</i></h3>
+      <ul>
+        <li><a href="#home"><i data-en="Home" data-hi="होम">Home</i></a></li>
+        <li><a href="#colleges"><i data-en="College & ITI" data-hi="कॉलेज एवं आईटीआई">College &amp; ITI</i></a></li>
+        <li><a href="#factories"><i data-en="Factory Directory" data-hi="फैक्टरी निर्देशिका">Factory Directory</i></a></li>
+        <li><a href="#student-register"><i data-en="Student Registration" data-hi="छात्र पंजीकरण">Student Registration</i></a></li>
+        <li><a href="#jobs"><i data-en="Job Opportunities" data-hi="रोजगार के अवसर">Job Opportunities</i></a></li>
+        <li><a href="#about"><i data-en="About Us & Contact" data-hi="हमारे बारे में एवं संपर्क">About Us &amp; Contact</i></a></li>
+      </ul>
+    </div>
+    <div>
+      <h3><i data-en="Contact Us" data-hi="संपर्क करें">Contact Us</i></h3>
+      <ul>
+        <li>Rajnandgaon, Chhattisgarh, India</li>
+        <li><a href="mailto:info@sharmacomputer.in">info@sharmacomputer.in</a></li>
+        <li><a href="tel:+918251010447">+91 8251010447</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3><i data-en="Legal" data-hi="कानूनी">Legal</i></h3>
+      <ul>
+        <li><a href="#privacy"><i data-en="Privacy Policy" data-hi="गोपनीयता नीति">Privacy Policy</i></a></li>
+        <li><a href="#privacy"><i data-en="Terms & Conditions" data-hi="नियम एवं शर्तें">Terms &amp; Conditions</i></a></li>
+      </ul>
+      <p style="margin-top:14px;background:rgba(255,255,255,.1);border-radius:10px;padding:12px;font-size:12.5px"><i data-en="100% genuine jobs • Free registration" data-hi="100% असली नौकरियाँ • निःशुल्क पंजीकरण">100% genuine jobs • Free registration</i></p>
+    </div>
+  </div>
+  <div class="bottom">
+    <div class="wrap">© <span id="year">2026</span> Sharma Computer, Rajnandgaon (Chhattisgarh). <i data-en="All rights reserved. | Together for a Better Tomorrow" data-hi="सर्वाधिकार सुरक्षित। | बेहतर कल के लिए साथ">All rights reserved. | Together for a Better Tomorrow</i></div>
+  </div>
+</footer>
+
+<script>
+  // ============================================================
+  // मुख्य पोर्टल का लिंक यहाँ डालें (Login/Register/Apply बटन के लिए)
+  // जैसे: const PORTAL_URL = "https://your-portal-url.com";
+  // खाली छोड़ने पर ये बटन Contact सेक्शन पर ले जाएँगे।
+  const PORTAL_URL = "";
+  // ============================================================
+
+  (function () {
+    // Portal links
+    var links = document.querySelectorAll(".js-portal");
+    links.forEach(function (a) {
+      if (PORTAL_URL) {
+        a.href = PORTAL_URL.replace(/\/$/, "") + a.getAttribute("data-path");
+      }
+      a.addEventListener("click", function (e) {
+        if (!PORTAL_URL) {
+          e.preventDefault();
+          closeDrawer();
+          document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+        } else {
+          closeDrawer();
+        }
+      });
+    });
+    if (PORTAL_URL) {
+      var note = document.getElementById("portalNote");
+      if (note) note.style.display = "none";
+    }
+
+    // Language toggle (English / हिन्दी)
+    var btn = document.getElementById("langBtn");
+    function setLang(l) {
+      document.documentElement.lang = l;
+      try { localStorage.setItem("sc_lang", l); } catch (e) {}
+      document.querySelectorAll("[data-en]").forEach(function (el) {
+        var v = el.getAttribute("data-" + l);
+        if (v !== null) el.textContent = v;
+      });
+      btn.textContent = (l === "en") ? "हिन्दी | English" : "English | हिन्दी";
+    }
+    var saved = "en";
+    try { saved = localStorage.getItem("sc_lang") || "en"; } catch (e) {}
+    setLang(saved === "hi" ? "hi" : "en");
+    btn.addEventListener("click", function () {
+      setLang(document.documentElement.lang === "en" ? "hi" : "en");
+    });
+
+    // Mobile drawer
+    var drawer = document.getElementById("drawer");
+    function openDrawer() { document.body.classList.add("drawer-open"); }
+    function closeDrawer() { document.body.classList.remove("drawer-open"); }
+    window.closeDrawer = closeDrawer;
+    document.getElementById("menuBtn").addEventListener("click", openDrawer);
+    document.getElementById("drawerClose").addEventListener("click", closeDrawer);
+    document.getElementById("drawerOverlay").addEventListener("click", closeDrawer);
+    drawer.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () { closeDrawer(); });
+    });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeDrawer(); });
+
+    // Scrollspy for desktop nav
+    var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav-links a"));
+    var sections = navLinks.map(function (a) { return document.querySelector(a.getAttribute("href")); });
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) {
+            var i = sections.indexOf(en.target);
+            if (i > -1) {
+              navLinks.forEach(function (a) { a.classList.remove("active"); });
+              navLinks[i].classList.add("active");
+            }
+          }
+        });
+      }, { rootMargin: "-40% 0px -55% 0px" });
+      sections.forEach(function (s) { if (s) io.observe(s); });
+    }
+
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  })();
+</script>
+</body>
+</html>
